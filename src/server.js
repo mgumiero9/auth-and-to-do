@@ -47,7 +47,7 @@ var flash = require('express-flash');
 var session = require('express-session');
 var methodOverride = require('method-override');
 var PORT = 3000;
-var initializePassport = require('./passport-config');
+var initializePassport = require('../passport-config');
 initializePassport(passport, function (email) { return users.find(function (user) { return user.email === email; }); }, function (id) { return users.find(function (user) { return user.id === id; }); });
 var users = [];
 app.set('view-engine', 'ejs');

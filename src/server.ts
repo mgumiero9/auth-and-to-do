@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import express = require('express');
+import userStuff = require('../test');
+// import userStuff from './test';
 
 const app = express()
 const bcrypt = require('bcrypt')
@@ -13,7 +15,7 @@ const methodOverride = require('method-override')
 
 const PORT = 3000;
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('../passport-config')
 initializePassport(
   passport,
     (email: any) => users.find(user => user.email === email),
@@ -66,6 +68,15 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     res.redirect('/login')
   } catch {
     res.redirect('/register')
+  }
+})
+
+app.get('/test', async (req, res) => {
+  try {
+    const obj = await userStuff();
+    res.send(obj)
+  } catch (error) {
+    res.send(error)
   }
 })
 
