@@ -1,9 +1,10 @@
 {
   "name": "current-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Awesome project developed with TypeORM.",
   "main": "index.js",
   "scripts": {
+    "directStart": "ts-node server.ts",
     "start": "nodemon server.js",
     "tsc": "tsc"
   },
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.27",
+    "ts-node": "3.3.0",
     "dotenv": "^8.0.0",
     "nodemon": "^1.19.1",
     "typescript": "^3.9.7"
