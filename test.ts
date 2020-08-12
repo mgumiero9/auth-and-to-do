@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./src/entity/User";
-
+import {Users} from "./src/entity/Users";
 
 class UserStuff {
 
@@ -9,7 +8,7 @@ class UserStuff {
         return await createConnection()
             .then(async connection => {
                 console.log("Inserting a new user into the database...");
-                const user = new User();
+                const user = new Users();
                 user.firstName = "Timber";
                 user.lastName = "Saw";
                 user.age = 25;
@@ -17,12 +16,11 @@ class UserStuff {
                 console.log("Saved a new user with id: " + user.id);
 
                 console.log("Loading users from the database...");
-                const users = await connection.manager.find(User);
+                const users = await connection.manager.find(Users);
                 console.log("Loaded users: ", users);
 
                 console.log("Here you can setup and run express/koa/any other framework.");
                 return Promise.resolve(users);
-
             })
             .catch(error => {
                 console.log(error)

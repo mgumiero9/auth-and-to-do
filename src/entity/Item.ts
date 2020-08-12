@@ -1,18 +1,15 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn} from "typeorm";
 
 @Entity()
-export class User {
+export class Item {
 
     @PrimaryGeneratedColumn()
-    user_id: number;
+    item_id: number;
 
     @Column()
-    email: string;
+    user_id: string;
 
     @Column()
-    password: string;
-
-    // @OneToMany()
-    // items:
+    name: string;
 
 }
