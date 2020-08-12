@@ -1,4 +1,8 @@
 <h1>Hi <%= name %></h1>
+<% if (messages.error) { %>
+  <%= messages.error %>
+<% } %>
+<hr>
 <form action="/logout?_method=DELETE" method="POST">
   <button type="submit">Log Out</button>
 </form>
