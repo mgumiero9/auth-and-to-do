@@ -14,6 +14,6 @@ export class Group {
     name: string;
 
     @ManyToOne(type => Item, item => item.groups)
-    item: Item
+    item: Item[]
 
 }
