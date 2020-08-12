@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Item} from "./Item";
 
 @Entity()
 export class Group {
@@ -11,5 +12,8 @@ export class Group {
 
     @Column()
     name: string;
+
+    @ManyToOne(type => Item, item => item.groups)
+    item: Item
 
 }
