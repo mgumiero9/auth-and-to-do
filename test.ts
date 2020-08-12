@@ -2,30 +2,35 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./src/entity/User";
 
-async function createUser() {
-    createConnection().then(async connection => {
 
-        console.log("Inserting a new user into the database...");
-        const user = new User();
-        user.firstName = "Timber";
-        user.lastName = "Saw";
-        user.age = 25;
-        await connection.manager.save(user);
-        console.log("Saved a new user with id: " + user.id);
+class UserStuff {
 
-        console.log("Loading users from the database...");
-        const users = await connection.manager.find(User);
-        console.log("Loaded users: ", users);
+    async createUser() {
+        return await createConnection()
+            .then(async connection => {
+                console.log("Inserting a new user into the database...");
+                const user = new User();
+                user.firstName = "Timber";
+                user.lastName = "Saw";
+                user.age = 25;
+                await connection.manager.save(user);
+                console.log("Saved a new user with id: " + user.id);
 
-        console.log("Here you can setup and run express/koa/any other framework.");
-        return users;
+                console.log("Loading users from the database...");
+                const users = await connection.manager.find(User);
+                console.log("Loaded users: ", users);
 
-    }).catch(error => {
-        console.log(error)
-        return error;
-    });
+                console.log("Here you can setup and run express/koa/any other framework.");
+                return Promise.resolve(users);
+
+            })
+            .catch(error => {
+                console.log(error)
+                return Promise.resolve(error);
+            });
+    }
 }
 
-export = createUser;
+export = UserStuff;
 
 

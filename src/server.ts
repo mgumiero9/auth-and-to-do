@@ -3,8 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import express = require('express');
-import userStuff = require('../test');
-// import userStuff from './test';
+import UserStuff = require('../test');
 
 const app = express()
 const bcrypt = require('bcrypt')
@@ -71,13 +70,15 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.get('/test', async (req, res) => {
-  try {
-    const obj = await userStuff();
-    res.send(obj)
-  } catch (error) {
-    res.send(error)
-  }
+app.get('/test', (req, res) => {
+    let userStuff = new UserStuff();
+    userStuff.createUser()
+        .then(obj => {
+          res.send(obj)
+        })
+        .catch(error => {
+          res.send(error)
+        })
 })
 
 app.delete('/logout', (req, res) => {
