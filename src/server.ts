@@ -70,15 +70,14 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.get('/test', (req, res) => {
+app.get('/test', async (req, res) => {
     let userStuff = new UserStuff();
-    userStuff.createUser()
-        .then(obj => {
-          res.send(obj)
-        })
-        .catch(error => {
-          res.send(error)
-        })
+    try {
+      let obj = await userStuff.createUser();
+      res.send(obj)
+    } catch (e) {
+      res.send(e)
+    }
 })
 
 app.delete('/logout', (req, res) => {
