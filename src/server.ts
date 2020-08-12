@@ -3,7 +3,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import express = require('express');
-import UserStuff = require('../test');
+import UserStuff = require('../test');  //TODO: REMOVE
+import ORMUtil = require('../ORMUtil');
+import {User} from "./entity/User";
 
 const app = express()
 const bcrypt = require('bcrypt')
@@ -22,6 +24,15 @@ initializePassport(
 )
 
 const users: { id: string; name: any; email: any; password: any }[] = []
+
+async function getDBInstance() {
+  try {
+    let db = await ORMUtil.createDBConnection();
+    return Promise.resolve(db);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -58,12 +69,13 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 app.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
+    let user = new User();
+    user.email = req.body.email;
+    user.password = hashedPassword;
+
+    let db = await getDBInstance()
+    await db.manager.save(user);
+
     res.redirect('/login')
   } catch {
     res.redirect('/register')

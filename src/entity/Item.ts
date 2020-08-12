@@ -15,9 +15,9 @@ export class Item {
     name: string;
 
     @ManyToOne(type => User, user => user.items)
-    user: User
+    user: User;
 
     @OneToMany(type => Group, group => group.item)
-    groups: Group[]
+    groups: Group[];
 
 }
