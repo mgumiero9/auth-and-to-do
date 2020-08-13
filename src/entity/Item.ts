@@ -5,11 +5,11 @@ import {Group} from "./Group";
 @Entity()
 export class Item {
 
-    @PrimaryGeneratedColumn()
-    item_id: number;
+    @PrimaryGeneratedColumn({ name: 'item_id' })
+    itemId: number;
 
-    @Column()
-    user_id: string;
+    @Column({ name: 'user_id' })
+    userId: string;
 
     @Column()
     name: string;

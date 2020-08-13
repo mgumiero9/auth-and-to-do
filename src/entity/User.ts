@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import {Entity, Unique, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
 import {Item} from "./Item";
 
 @Entity()
+@Unique(["email"])
 export class User {
 
-    @PrimaryGeneratedColumn()
-    user_id: number;
+    @PrimaryGeneratedColumn({ name: 'user_id' })
+    userId: number;
 
     @Column()
     email: string;
