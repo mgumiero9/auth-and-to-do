@@ -3,17 +3,7 @@ import {createConnection} from "typeorm";
 
 class ORMUtil {
 
-    private static INSTANCE: ORMUtil;
     private static CONNECTION: any;
-
-    private constructor() {}
-
-    static getInstance() {
-        if (!this.INSTANCE) {
-            this.INSTANCE = new ORMUtil();
-        }
-        return this.INSTANCE;
-    }
 
     static async createDBConnection() {
         if (!this.CONNECTION) {
