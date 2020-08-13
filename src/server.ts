@@ -17,13 +17,7 @@ const methodOverride = require('method-override')
 const PORT = 3000;
 
 const initializePassport = require('../passport-config')
-initializePassport(
-  passport,
-    (email: any) => users.find(user => user.email === email),
-    (id: any) => users.find(user => user.id === id)
-)
-
-const users: { id: string; name: any; email: any; password: any }[] = []
+initializePassport(passport)
 
 async function getDBInstance() {
   try {

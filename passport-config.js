@@ -1,11 +1,38 @@
+const User = require('./src/entity/User').User;
+const ORMUtil = require('./ORMUtil');
+
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
 
-function initialize(passport, getUserByEmail, getUserById) {
+async function getDBInstance() {
+  try {
+    let db = await ORMUtil.createDBConnection();
+    return Promise.resolve(db);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
+
+async function getUserByEmail(email) {
+  try {
+    let db = await getDBInstance()
+    let user = await db.manager.findOne(User, { email: email });
+    return Promise.resolve(user);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
+
+async function initialize(passport) {
   const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email)
-    if (user == null) {
-      return done(null, false, { message: 'No user with that email' })
+    let user;
+    try {
+      user = await getUserByEmail(email)
+      if (user == null) {
+        return done(null, false, { message: 'No user with that email' })
+      }
+    } catch (e) {
+      return done(null, false, { message: 'Error to get DB info' })
     }
 
     try {
@@ -20,10 +47,8 @@ function initialize(passport, getUserByEmail, getUserById) {
   }
 
   passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
-  passport.serializeUser((user, done) => done(null, user.id))
-  passport.deserializeUser((id, done) => {
-    return done(null, getUserById(id))
-  })
+  passport.serializeUser((user, done) => done(null, user));
+  passport.deserializeUser((user, done) => done(null, user));
 }
 
 module.exports = initialize
