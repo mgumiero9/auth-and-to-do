@@ -1,5 +1,5 @@
-const User = require('./src/entity/User').User;
 const ORMUtil = require('./ORMUtil');
+const { User } = require('./src/entity/User');
 
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
