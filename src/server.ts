@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 import express = require('express');
 import UserStuff = require('../test');  //TODO: REMOVE
 import ORMUtil = require('../ORMUtil');
-import {User} from "./entity/User";
+import { User } from "./entity/User";
 
 const app = express()
 const bcrypt = require('bcrypt')
