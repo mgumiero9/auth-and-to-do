@@ -77,7 +77,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     await db.manager.save(user);
 
     res.redirect('/login')
-  } catch {
+  } catch (error) {
+    req.flash('error', JSON.stringify(error.detail));
     res.redirect('/register')
   }
 })
