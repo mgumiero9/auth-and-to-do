@@ -42,8 +42,8 @@ app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
   // @ts-ignore
-  const {name} = req.user;
-  res.render('index.ejs', { name: name });
+  const {email} = req.user ;
+  res.render('index.ejs', { email: email });
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
