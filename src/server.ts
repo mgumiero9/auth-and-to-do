@@ -42,7 +42,7 @@ app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
   // @ts-ignore
-  const {email} = req.user ;
+  const { email } = req.user ;
   res.render('index.ejs', { email: email });
 })
 
