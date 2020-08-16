@@ -39,6 +39,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+app.use("/static", express.static(__dirname + '/static'));
 
 app.get('/', checkAuthenticated, (req, res) => {
   // @ts-ignore

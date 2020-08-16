@@ -8,7 +8,21 @@
     <title>Auth-To-Do</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="node_modules/bootstrap-tagsinput/src/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg==" crossorigin="anonymous" />
+    <style>
+      body { background-color:#fafafa;}
+      .container { margin: 150px auto; }
+      h2 { margin:20px auto; font-size:14px;}
+      .bootstrap-tagsinput .tag {
+        background: limegreen;
+        border: 1px solid lightgreen;
+        padding: 0 6px;
+        margin-right: 2px;
+        color: white;
+        border-radius: 15px;
+      }
+    </style>
+
   </head>
   <body>
     <% if (messages.error) { %>
@@ -38,14 +52,16 @@
       <hr>
       <div class="container-md mx-auto">
         <h4>Add / Update Item</h4>
+        <hr>
         <div class="panel">
           <form class="col-md-4" action="/add-item" method="POST">
             <label>Name:
               <input type="text" name="">
             </label>
             <label>Groups:
-              <input type="text" name="">
+              <input type="text" name="" value="" data-role="tagsinput">
             </label>
+            <hr>
             <button class="btn btn-primary" type="submit">Add / Update</button>
           </form>
         </div>
@@ -56,7 +72,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="node_modules/bootstrap-tagsinput/src/bootstrap-tagsinput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js" integrity="sha512-VvWznBcyBJK71YKEKDMpZ0pCVxjNuKwApp4zLF3ul+CiflQi6aIJR+aZCP/qWsoFBA28avL5T5HA+RE+zrGQYg==" crossorigin="anonymous"></script>
 
   </body>
 </html>
