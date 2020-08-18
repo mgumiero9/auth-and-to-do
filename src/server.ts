@@ -6,6 +6,7 @@ import express = require('express');
 import UserStuff = require('../test');  //TODO: REMOVE
 import ORMUtil = require('../ORMUtil');
 import { User } from "./entity/User";
+import { Item } from "./entity/Item";
 
 const app = express();
 const bcrypt = require('bcrypt');
@@ -44,7 +45,12 @@ app.use("/static", express.static(__dirname + '/static'));
 app.get('/', checkAuthenticated, (req, res) => {
   // @ts-ignore
   const { email } = req.user ;
-  res.render('index.ejs', { email: email });
+  // @ts-ignore
+  const { userId } = req.user ;
+  res.render('index.ejs', {
+    email: email,
+    userId: userId
+  });
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -76,7 +82,26 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     req.flash('error', JSON.stringify(error.detail));
     res.redirect('/register');
   }
-})
+});
+
+app.post('/add-item', checkAuthenticated, async (req, res) => {
+  try {
+    let item = new Item();
+    // item.userId = req.user && req.user.userId;
+    item.userId = req.body.userId;
+    item.name = req.body.name;
+    item.groups = [...req.body.groups];
+
+    let db = await getDBInstance();
+    await db.manager.save(item);
+
+    req.flash('info', 'User saved Successfully');
+    res.redirect('/');
+  } catch (error) {
+    req.flash('error', JSON.stringify(error.detail));
+    res.redirect('/');
+  }
+});
 
 app.get('/test', async (req, res) => {
     let userStuff = new UserStuff();

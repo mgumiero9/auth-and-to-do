@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
 import {Item} from "./Item";
 
 @Entity()
@@ -8,12 +8,15 @@ export class Group {
     groupId: number;
 
     @Column({ name: 'item_id' })
-    itemId: string;
+    itemId: number;
 
     @Column()
     name: string;
 
-    @ManyToOne(type => Item, item => item.groups)
-    item: Item[];
+    @ManyToMany(type => Item, item => item.groups)
+    items: Item[];
+
+    // @ManyToOne(type => Item, item => item.groups)
+    // item: Item[];
 
 }

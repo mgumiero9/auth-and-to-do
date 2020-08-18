@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable} from "typeorm";
 import {User} from "./User";
 import {Group} from "./Group";
 
@@ -9,7 +9,7 @@ export class Item {
     itemId: number;
 
     @Column({ name: 'user_id' })
-    userId: string;
+    userId: number;
 
     @Column()
     name: string;
@@ -17,7 +17,13 @@ export class Item {
     @ManyToOne(type => User, user => user.items)
     user: User;
 
-    @OneToMany(type => Group, group => group.item)
+    @ManyToMany(type => Group, group => group.items, {
+        cascade: true
+    })
+    @JoinTable()
     groups: Group[];
+
+    // @OneToMany(type => Group, group => group.item)
+    // groups: Group[];
 
 }
